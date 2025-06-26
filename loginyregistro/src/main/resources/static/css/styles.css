@@ -1,0 +1,313 @@
+@charset "UTF-8";
+/* Reinicio CSS básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que el padding y el borde no aumenten el ancho/alto del elemento */
+}
+
+/* Estilos globales para el cuerpo y HTML */
+body, html {
+    font-family: 'Inter', sans-serif; /* Usamos la fuente Inter */
+    background-color: #f3f4f6; /* Color de fondo general (Tailwind gray-100) */
+    color: #374151; /* Color de texto predeterminado (Tailwind gray-700) */
+    min-height: 100vh; /* Asegura que el body ocupe al menos el 100% de la altura de la ventana */
+    display: flex;
+    flex-direction: column; /* Para que el contenido se apile verticalmente */
+    /* Eliminado: width: 1200px; - esto impedía la responsividad */
+}
+
+/* Contenedor principal para el contenido */
+.container {
+    max-width: 1200px; /* Ancho máximo para el contenido */
+    margin: 0 auto; /* Centra el contenedor */
+    padding: 2rem 1rem; /* Relleno superior/inferior y lateral */
+    width: 100%; /* Asegura que ocupe todo el ancho disponible hasta el max-width */
+}
+
+/* Estilos para la barra de navegación (nav) */
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centra verticalmente los ítems */
+    padding: 1rem 2rem; /* Relleno de la barra de navegación */
+    background-color: #1f2937; /* Color de fondo oscuro (Tailwind gray-800) */
+    color: #f9fafb; /* Texto blanco (Tailwind gray-50) */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    border-bottom-left-radius: 0.75rem; /* Esquinas redondeadas abajo */
+    border-bottom-right-radius: 0.75rem;
+    height: auto; /* Altura auto para adaptarse al contenido */
+}
+
+.nav > h1 {
+    font-size: 2.25rem; /* text-4xl */
+    font-weight: bold;
+    color: #f9fafb;
+}
+
+.nav-links {
+    display: flex;
+    gap: 1.5rem; /* Espacio entre enlaces (Tailwind space-x-6) */
+    font-size: 1rem; /* text-base */
+}
+
+/* Estilos para enlaces generales */
+a {
+    text-decoration: none;
+    color: inherit; /* Hereda el color del padre */
+    font: inherit;
+    transition: color 0.2s ease-in-out; /* Transición suave para cambios de color */
+}
+
+.nav-links a,
+.btn-link { /* Clase para enlaces que parecen botones */
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.375rem; /* rounded-md */
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.nav-links a:hover,
+.btn-link:hover {
+    background-color: #4b5563; /* Tailwind gray-600 */
+    color: #f9fafb;
+}
+
+/* Mensajes principales */
+.main > p {
+    font-size: 2.5rem; /* text-4xl */
+    margin: 1rem;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Estilos para formularios */
+.form-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #d1d5db; /* Tailwind gray-300 */
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 500px; /* Ancho máximo para el formulario */
+    border-radius: 0.75rem; /* rounded-xl */
+    padding: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+    margin: 2rem auto; /* Centrar el formulario */
+    background-color: #fff;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem; /* Espacio de 8px */
+    padding: 0.5rem 0; /* Relleno vertical */
+    margin-bottom: 1rem; /* Margen inferior */
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    padding: 0.75rem 1rem; /* py-3 px-4 */
+    border: 1px solid #d1d5db; /* Tailwind gray-300 */
+    border-radius: 0.5rem; /* rounded-lg */
+    width: 100%;
+    font-size: 1rem;
+    color: #374151;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #3b82f6; /* Tailwind blue-500 */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25); /* Focus ring */
+}
+
+/* Estilo para mensajes de error de validación */
+.error-message { /* Renombrado de .error a .error-message para evitar conflictos */
+    color: #ef4444; /* Tailwind red-500 */
+    font-size: 0.875rem; /* text-sm */
+    margin-top: 0.25rem;
+    width: 100%;
+}
+
+/* Botones */
+.btn-primary,
+.btn-secondary,
+.btn-danger { /* Clases genéricas para botones */
+    display: inline-block;
+    padding: 0.75rem 1.5rem; /* py-3 px-6 */
+    border: none;
+    border-radius: 0.5rem; /* rounded-lg */
+    font-weight: 600; /* font-semibold */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); /* shadow-sm */
+}
+
+.btn-primary {
+    background-color: #3b82f6; /* Tailwind blue-500 */
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2563eb; /* Tailwind blue-600 */
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: #6b7280; /* Tailwind gray-500 */
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #4b5563; /* Tailwind gray-600 */
+    transform: translateY(-1px);
+}
+
+.btn-danger {
+    background-color: #ef4444; /* Tailwind red-500 */
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626; /* Tailwind red-600 */
+    transform: translateY(-1px);
+}
+
+/* Botón de formulario específico */
+.btn-form { /* Este es un estilo más específico, si lo necesitas sobreescribiendo btn-primary */
+    background-color: #4C00FF; /* Morado específico */
+    border: none;
+    color: white;
+    padding: 1rem 5rem; /* Más padding para que sea más grande */
+    font-weight: bold;
+    font-size: 1.25rem; /* text-xl */
+    border-radius: 0.3125rem; /* 5px */
+    margin: 1.25rem auto; /* Centrar con margen */
+    display: block; /* Para que ocupe su propia línea y se pueda centrar con auto margin */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-form:hover {
+    background-color: #3a00cc; /* Un morado un poco más oscuro al pasar el ratón */
+    transform: translateY(-2px); /* Efecto de "levantar" */
+}
+
+/* Estilos para las tarjetas de poemas (usadas en poems.jsp) */
+.poem-card {
+    background-color: #fff;
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+    padding: 1.5rem; /* p-6 */
+    margin-bottom: 1.5rem; /* mb-6 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.poem-card h3 a {
+    color: #1d4ed8; /* Tailwind blue-700 */
+    font-weight: 700;
+}
+
+.poem-card h3 a:hover {
+    color: #1e40af; /* Tailwind blue-800 */
+}
+
+.poem-content-preview {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limita a 3 líneas */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1rem;
+    color: #4b5563; /* Tailwind gray-700 */
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* Flexbox para botones de acción en tarjetas */
+.card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem; /* Espacio entre los iconos */
+    margin-top: 1rem;
+}
+
+.card-actions a,
+.card-actions button {
+    font-size: 1.25rem; /* text-xl */
+    color: #6b7280; /* Tailwind gray-500 */
+    transition: color 0.2s ease-in-out;
+}
+
+.card-actions a:hover {
+    color: #3b82f6; /* Tailwind blue-500 */
+}
+
+.card-actions button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.card-actions button:hover {
+    color: #ef4444; /* Tailwind red-500 */
+}
+
+/* Estilos para la vista de detalle de poema (poem_detail.jsp) */
+.poem-detail-card {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem;
+    margin-top: 2rem;
+}
+
+.poem-detail-content {
+    white-space: pre-wrap; /* Mantiene saltos de línea y espacios en blanco del contenido */
+    font-size: 1.125rem; /* text-lg */
+    line-height: 1.75;
+    color: #374151;
+    margin-bottom: 2rem;
+}
+
+.poem-detail-meta {
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: right;
+    margin-top: 1rem;
+}
+
+/* Botones para formularios de acción (ej. eliminar, volver) */
+.action-buttons {
+    display: flex;
+    justify-content: space-between; /* Espacio entre los botones */
+    margin-top: 2rem;
+}
+
+
+.alert {
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background-color: #d1fae5; 
+    border: 1px solid #34d399; 
+    color: #065f46;
+}
+
+.alert-error {
+    background-color: #fee2e2; /* Tailwind red-100 */
+    border: 1px solid #f87171; /* Tailwind red-400 */
+    color: #b91c1c; /* Tailwind red-700 */
+}

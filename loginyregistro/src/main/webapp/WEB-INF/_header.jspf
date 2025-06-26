@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%-- Este es un fragmento de cabecera que se incluirá en todas las páginas protegidas --%>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header</title>>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <nav class="bg-gray-800 p-4 shadow-lg rounded-b-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            
+            <a href="${pageContext.request.contextPath}/poemas" class="text-white text-2xl font-bold rounded-md px-3 py-2 hover:bg-gray-700 transition duration-300">PoemasApp</a>
+
+            <div class="flex space-x-4">
+                <a href="${pageContext.request.contextPath}/poemas" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300">Mis Poemas</a>
+                <a href="${pageContext.request.contextPath}/agregar/poema" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-base font-medium transition duration-300">Añadir Poema</a>
+            </div>
+
+>
+            <div class="flex items-center space-x-4">
+                <c:if test="${sessionScope.nombre != null}">
+                    <span class="text-gray-300 text-base font-medium">¡Hola, <c:out value="${sessionScope.nombre}"/>!</span>
+                </c:if>
+                <a href="${pageContext.request.contextPath}/cerrar/sesion" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 transition duration-300 shadow-md">Cerrar Sesión</a>
+            </div>
+        </div>
+    </nav>
+</body>
+</html>
