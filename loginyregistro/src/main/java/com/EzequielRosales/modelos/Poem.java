@@ -1,4 +1,4 @@
-package com.EzequielRosales.modelos; // Paquete corregido
+package com.EzequielRosales.modelos;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -8,7 +8,11 @@ import jakarta.validation.constraints.Pattern;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "poemas")
+@Table(name = "poemas", indexes = {
+    @Index(name = "idx_poema_usuario", columnList = "usuario_id"),
+    @Index(name = "idx_poema_author", columnList = "author"),
+    @Index(name = "idx_poema_created", columnList = "created_at")
+})
 public class Poem {
 
     @Id
@@ -16,81 +20,81 @@ public class Poem {
     private Long id;
 
     @NotBlank(message = "El título no puede estar vacío.")
-    @Size(min = 5, message = "El título debe tener al menos 5 caracteres.")
-    @Pattern(regexp = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ!?., ]*$", message = "El título no debe contener caracteres especiales excesivos.")
+    @Size(min = 5, max = 100, message = "El título debe tener entre 5 y 100 caracteres.")
+    @Pattern(regexp = "^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ!?., ]*$", 
+             message = "El título no debe contener caracteres especiales excesivos.")
+    @Column(nullable = false, length = 100)
     private String title;
 
     @NotBlank(message = "El autor no puede estar vacío.")
-    @Size(min = 3, message = "El autor debe tener al menos 3 caracteres.")
-    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*$", message = "El autor no debe contener caracteres especiales.")
+    @Size(min = 3, max = 50, message = "El autor debe tener entre 3 y 50 caracteres.")
+    @Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ ]*$", 
+             message = "El autor no debe contener caracteres especiales.")
+    @Column(nullable = false, length = 50)
     private String author;
 
     @NotBlank(message = "El contenido no puede estar vacío.")
-    @Size(min = 15, message = "El contenido del poema debe tener al menos 15 caracteres.")
+    @Size(min = 15, max = 5000, message = "El contenido del poema debe tener entre 15 y 5000 caracteres.")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    // Relación Many-to-One con Usuario: Un poema es creado por un Usuario.
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // Relación Many-to-One con Usuario
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id", nullable = false) // Clave foránea en la tabla 'poemas'
-    private User usuario; // ¡Debe ser 'usuario' para el mappedBy en Usuario.java!
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private User usuario;
+
+    
+    @Version
+    private Long version;
 
     public Poem() {
     }
 
-    // Getters y Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
+    
+    public Poem(String title, String author, String content, User usuario) {
         this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
         this.content = content;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public User getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
+   
+    
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    
+    public String getPreview() {
+        return content.length() > 100 ? content.substring(0, 100) + "..." : content;
     }
 }

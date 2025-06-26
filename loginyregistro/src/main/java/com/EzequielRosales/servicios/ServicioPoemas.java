@@ -5,16 +5,16 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.EzequielRosales.modelos.Poem;
-import com.EzequielRosales.repositorios.PoemReposit;
+import com.EzequielRosales.repositorios.PoemRepository;
 
 
 
 @Service
 public class ServicioPoemas {
 
-	private final PoemReposit repositorioPoemas;
+	private final PoemRepository repositorioPoemas;
 
-	public ServicioPoemas(PoemReposit repositorioPoemas) {
+	public ServicioPoemas(PoemRepository repositorioPoemas) {
 		this.repositorioPoemas = repositorioPoemas;
 	}
 
